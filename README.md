@@ -39,11 +39,12 @@ The result is a struct `DialectResult` which provides the details of what the ex
 
 ```go
 type DialectResult struct {
-	Blanks   int
-	Comments int
-	Loc      int
-	Sloc     int
-	IsTest   bool
+	Blanks     int
+	Comments   int
+	Loc        int
+	Sloc       int
+	IsTest     bool
+	Copyrights []*copyright.CopyrightResult
 }
 ```
 
