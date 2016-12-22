@@ -1,4 +1,4 @@
-# Dialect
+# Dialect [![Build Status](https://travis-ci.org/pinpt/dialect.svg?branch=master)](https://travis-ci.org/pinpt/dialect)
 
 Dialect is a framework for processing source code to determine basis linguistic details such as number of lines of comments, etc.
 
