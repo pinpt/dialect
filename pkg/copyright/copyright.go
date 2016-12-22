@@ -1,6 +1,7 @@
 package copyright
 
 import (
+	"bytes"
 	"regexp"
 	"strings"
 )
@@ -9,6 +10,40 @@ type CopyrightResult struct {
 	Found bool
 	Dates []string
 	Name  string
+}
+
+func (c *CopyrightResult) Stringify(symbol string) string {
+	if c.Found {
+		var b bytes.Buffer
+		b.WriteString("Copyright ")
+		b.WriteString(symbol)
+		b.WriteString(" ")
+		if c.Dates != nil && len(c.Dates) > 0 {
+			if len(c.Dates) > 1 {
+				b.WriteString(strings.Join(c.Dates, "-"))
+			} else {
+				b.WriteString(c.Dates[0])
+			}
+			b.WriteString(" ")
+		}
+		if c.Name != "" {
+			b.WriteString("by ")
+			b.WriteString(c.Name)
+		}
+		b.WriteString(". All Rights Reserved.")
+		return b.String()
+	}
+	return ""
+}
+
+// provides a nice string representation of the Copyright statement
+func (c *CopyrightResult) String() string {
+	return c.Stringify("©")
+}
+
+// provides a nice string representation of the Copyright statement
+func (c *CopyrightResult) HTMLString() string {
+	return c.Stringify("&copy;")
 }
 
 var re = regexp.MustCompile("(?i)(copyright)\\s*(\\(c\\)|&copy;|&#169;|&#xa9;|©)?\\s*(\\d{4})\\s*[-,]?\\s*(\\d{4})?\\s*(by)?\\s*(.*)")

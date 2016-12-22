@@ -385,3 +385,90 @@ func TestCopyright17(t *testing.T) {
 		t.Fatalf("result name should have been \"Colin Marc (colinmarc@gmail.com)\", but was %s", result.Name)
 	}
 }
+
+func TestCopyright18(t *testing.T) {
+	result, err := copyright.ParseCopyright("Copyright (c) 2016 A Pinpoint PBC")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result == nil {
+		t.Fatal("result was nil")
+	}
+	if result.Found == false {
+		t.Fatal("result not found")
+	}
+	if len(result.Dates) != 1 {
+		t.Fatal("result date not found")
+	}
+	if result.Dates[0] != "2016" {
+		t.Fatalf("result date should be 2016, but was %s", result.Dates[0])
+	}
+	if result.Name != "A Pinpoint PBC" {
+		t.Fatalf("result name should have been \"A Pinpoint PBC\", but was %s", result.Name)
+	}
+	str := result.String()
+	expected := "Copyright © 2016 by A Pinpoint PBC. All Rights Reserved."
+	if str != expected {
+		t.Fatalf("expected \"%s\", was: \"%s\"", expected, str)
+	}
+}
+
+func TestCopyright19(t *testing.T) {
+	result, err := copyright.ParseCopyright("Copyright (c) 2016-2017 A Pinpoint PBC")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result == nil {
+		t.Fatal("result was nil")
+	}
+	if result.Found == false {
+		t.Fatal("result not found")
+	}
+	if len(result.Dates) != 2 {
+		t.Fatal("result date not found")
+	}
+	if result.Dates[0] != "2016" {
+		t.Fatalf("result date should be 2016, but was %s", result.Dates[0])
+	}
+	if result.Dates[1] != "2017" {
+		t.Fatalf("result date should be 2017, but was %s", result.Dates[1])
+	}
+	if result.Name != "A Pinpoint PBC" {
+		t.Fatalf("result name should have been \"A Pinpoint PBC\", but was %s", result.Name)
+	}
+	str := result.String()
+	expected := "Copyright © 2016-2017 by A Pinpoint PBC. All Rights Reserved."
+	if str != expected {
+		t.Fatalf("expected \"%s\", was: \"%s\"", expected, str)
+	}
+}
+
+func TestCopyright20(t *testing.T) {
+	result, err := copyright.ParseCopyright("Copyright (c) 2016-2017 A Pinpoint PBC")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result == nil {
+		t.Fatal("result was nil")
+	}
+	if result.Found == false {
+		t.Fatal("result not found")
+	}
+	if len(result.Dates) != 2 {
+		t.Fatal("result date not found")
+	}
+	if result.Dates[0] != "2016" {
+		t.Fatalf("result date should be 2016, but was %s", result.Dates[0])
+	}
+	if result.Dates[1] != "2017" {
+		t.Fatalf("result date should be 2017, but was %s", result.Dates[1])
+	}
+	if result.Name != "A Pinpoint PBC" {
+		t.Fatalf("result name should have been \"A Pinpoint PBC\", but was %s", result.Name)
+	}
+	str := result.HTMLString()
+	expected := "Copyright &copy; 2016-2017 by A Pinpoint PBC. All Rights Reserved."
+	if str != expected {
+		t.Fatalf("expected \"%s\", was: \"%s\"", expected, str)
+	}
+}
