@@ -19,5 +19,9 @@ func (e *SQLExaminer) NewExaminer() dialect.DialectExaminer {
 }
 
 func init() {
-	dialect.RegisterExaminer("SQL", &SQLExaminer{})
+	ex := &SQLExaminer{}
+	dialect.RegisterExaminer("SQL", ex)
+	dialect.RegisterExaminer("PLSQL", ex)
+	dialect.RegisterExaminer("PLpgSQL", ex)
+	dialect.RegisterExaminer("SQLPL", ex)
 }

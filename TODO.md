@@ -6,3 +6,95 @@ This is a list of things we want to do to Dialect.
 - [ ] Add cucumber test detection for Java, etc
 - [ ] Add more test framework detection for other languages (Python, Ruby, etc)
 - [ ] Identify Licenses
+- [ ] Add `ANTLR`
+- [ ] Add `API Blueprint`
+- [ ] Add `ASN.1`
+- [ ] Add `ASP`
+- [ ] Add `ActionScript`
+- [ ] Add `Ada`
+- [ ] Add `ApacheConf`
+- [ ] Add `AppleScript`
+- [ ] Add `AsciiDoc`
+- [ ] Add `AspectJ`
+- [ ] Add `Assembly`
+- [ ] Add `Awk`
+- [ ] Add `Batchfile` (fix windows command)
+- [ ] Add `Bison`
+- [ ] Add `CMake`
+- [ ] Add `COBOL`
+- [ ] Add `CSON`
+- [ ] Add `CSV`
+- [ ] Add `Clojure`
+- [ ] Add `ColdFusion` and `ColdFusion CFC`
+- [ ] Add `Common Lisp`
+- [ ] Add `Component Pascal`
+- [ ] Add `D`
+- [ ] Add `Dart`
+- [ ] Add `Diff`
+- [ ] Add `EBNF`
+- [ ] Add `Elixir`
+- [ ] Add `Elm`
+- [ ] Add `Erlang`
+- [ ] Add `F#`
+- [ ] Add `Fortran`
+- [ ] Add `FreeMarker`
+- [ ] Add `Gnuplot`
+- [ ] Add `Gradle`
+- [ ] Add `GraphQL`
+- [ ] Add `Graphviz (DOT)`
+- [ ] Add `Groovy` and `Groovy Server Pages`
+- [ ] Add `Handlebars`
+- [ ] Add `Haxe`
+- [ ] Add `INI`
+- [ ] Add `Inno Setup`
+- [ ] Add `JFlex`
+- [ ] Add `JSON5`
+- [ ] Add `JSX`
+- [ ] Add `Java Server Pages`
+- [ ] Add `Jupyter Notebook`
+- [ ] Add `LLVM`
+- [ ] Add `Less`
+- [ ] Add `Lex`
+- [ ] Add `Lua`
+- [ ] Add `Mathematica`
+- [ ] Add `Matlab`
+- [ ] Add `Maven POM`
+- [ ] Add `MediaWiki`
+- [ ] Add `Nginx`
+- [ ] Add `OCaml`
+- [ ] Add `Objective-C`
+- [ ] Add `Pascal`
+- [ ] Add `Perl` and `Perl6` and `Pod`
+- [ ] Add `PostScript`
+- [ ] Add `PowerBuilder`
+- [ ] Add `PowerShell`
+- [ ] Add `Prolog`
+- [ ] Add `Protocol Buffer`
+- [ ] Add `Pug`
+- [ ] Add `Puppet`
+- [ ] Add `RAML`
+- [ ] Add `RDoc`
+- [ ] Add `RPM Spec`
+- [ ] Add `Rust`
+- [ ] Add `SVG`
+- [ ] Add `Scheme`
+- [ ] Add `Smalltalk`
+- [ ] Add `Smarty`
+- [ ] Add `Swift`
+- [ ] Add `TOML`
+- [ ] Add `Tcl`
+- [ ] Add `Tcsh`
+- [ ] Add `TeX`
+- [ ] Add `Text`
+- [ ] Add `Textile`
+- [ ] Add `Thrift`
+- [ ] Add `TypeScript`
+- [ ] Add `UnrealScript`
+- [ ] Add `Vim script`
+- [ ] Add `Vue`
+- [ ] Add `WebIDL`
+- [ ] Add `XPages`
+- [ ] Add `XQuery`
+- [ ] Add `XSLT`
+- [ ] Add `Yacc`
+- [ ] Add `reStructuredText`

@@ -19,5 +19,7 @@ func (e *MarkdownExaminer) NewExaminer() dialect.DialectExaminer {
 }
 
 func init() {
-	dialect.RegisterExaminer("Markdown", &MarkdownExaminer{})
+	ex := &MarkdownExaminer{}
+	dialect.RegisterExaminer("Markdown", ex)
+	dialect.RegisterExaminer("RMarkdown", ex)
 }

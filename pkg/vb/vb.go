@@ -19,5 +19,7 @@ func (e *VBScriptExaminer) NewExaminer() dialect.DialectExaminer {
 }
 
 func init() {
-	dialect.RegisterExaminer("VBScript", &VBScriptExaminer{})
+	ex := &VBScriptExaminer{}
+	dialect.RegisterExaminer("VBScript", ex)
+	dialect.RegisterExaminer("Visual Basic", ex)
 }

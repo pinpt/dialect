@@ -45,6 +45,26 @@ func (e *CStyleExaminer) NewExaminer() dialect.DialectExaminer {
 
 func init() {
 	examiner := &CStyleExaminer{}
+	dialect.RegisterExaminer("Apex", examiner)
+	dialect.RegisterExaminer("AGS Script", examiner)
+	dialect.RegisterExaminer("Arduino", examiner)
 	dialect.RegisterExaminer("C", examiner)
 	dialect.RegisterExaminer("C++", examiner)
+	dialect.RegisterExaminer("ChucK", examiner)
+	dialect.RegisterExaminer("Cuda", examiner)
+	dialect.RegisterExaminer("DTrace", examiner)
+	dialect.RegisterExaminer("EQ", examiner)
+	dialect.RegisterExaminer("Game Maker Language", examiner)
+	dialect.RegisterExaminer("Kotlin", examiner)
+	dialect.RegisterExaminer("Metal", examiner)
+	dialect.RegisterExaminer("Objective-C", examiner)
+	dialect.RegisterExaminer("Objective-C++", examiner)
+	dialect.RegisterExaminer("OpenCL", examiner)
+	dialect.RegisterExaminer("Scala", examiner)
+	dialect.RegisterExaminer("Squirrel", examiner)
+	dialect.RegisterExaminer("Unified Parallel C", examiner)
+	dialect.RegisterExaminer("Uno", examiner)
+	dialect.RegisterExaminer("UnrealScript", examiner)
+	dialect.RegisterExaminer("XC", examiner)
+	dialect.RegisterExaminer("XS", examiner)
 }

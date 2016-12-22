@@ -21,5 +21,7 @@ func (e *CSSExaminer) NewExaminer() dialect.DialectExaminer {
 func init() {
 	ex := &CSSExaminer{}
 	dialect.RegisterExaminer("CSS", ex)
-	dialect.RegisterExaminer("SASS", ex)
+	dialect.RegisterExaminer("Sass", ex)
+	dialect.RegisterExaminer("SCSS", ex)
+	dialect.RegisterExaminer("Stylus", ex)
 }
