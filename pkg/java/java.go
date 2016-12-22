@@ -3,6 +3,7 @@ package java
 import (
 	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/cstyle"
+	"github.com/pinpt/dialect/pkg/java/junit"
 	"github.com/pinpt/dialect/pkg/java/selenium"
 )
 
@@ -11,7 +12,7 @@ type JavaExaminer struct {
 }
 
 func isTest(line *dialect.DialectLine) bool {
-	return selenium.IsTest(line)
+	return junit.IsTest(line) || selenium.IsTest(line)
 }
 
 func (e *JavaExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {

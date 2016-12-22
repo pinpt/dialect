@@ -98,3 +98,47 @@ public class SampleSauceTest {
 		t.Fatal("result.IsTest should have been true, was false")
 	}
 }
+
+func TestJavaJUnit(t *testing.T) {
+	// from https://www.tutorialspoint.com/junit/junit_test_framework.htm
+	reader := strings.NewReader(`import junit.framework.*;
+
+public class JavaTest extends TestCase {
+   protected int value1, value2;
+
+   // assigning the values
+   protected void setUp(){
+      value1 = 3;
+      value2 = 3;
+   }
+
+   // test method to add two values
+   public void testAdd(){
+      double result = value1 + value2;
+      assertTrue(result == 6);
+   }
+}
+`)
+	result, err := dialect.Examine("Java", "foo.java", reader, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result == nil {
+		t.Fatal("result was nil")
+	}
+	if result.Loc != 18 {
+		t.Fatalf("result.Loc should have been 18, was %d", result.Loc)
+	}
+	if result.Sloc != 12 {
+		t.Fatalf("result.Sloc should have been 12, was %d", result.Sloc)
+	}
+	if result.Comments != 2 {
+		t.Fatalf("result.Comments should have been 2, was %d", result.Comments)
+	}
+	if result.Blanks != 4 {
+		t.Fatalf("result.Blanks should have been 4, was %d", result.Blanks)
+	}
+	if result.IsTest == false {
+		t.Fatal("result.IsTest should have been true, was false")
+	}
+}

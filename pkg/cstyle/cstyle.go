@@ -57,8 +57,6 @@ func init() {
 	dialect.RegisterExaminer("Game Maker Language", examiner)
 	dialect.RegisterExaminer("Kotlin", examiner)
 	dialect.RegisterExaminer("Metal", examiner)
-	dialect.RegisterExaminer("Objective-C", examiner)
-	dialect.RegisterExaminer("Objective-C++", examiner)
 	dialect.RegisterExaminer("OpenCL", examiner)
 	dialect.RegisterExaminer("Scala", examiner)
 	dialect.RegisterExaminer("Squirrel", examiner)
