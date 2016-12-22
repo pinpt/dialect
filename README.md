@@ -55,6 +55,7 @@ The fields are the following:
 - _Loc_ the total number of lines detected (_Blanks_ + _Comments_ + _Sloc_ = _Loc_)
 - _Sloc_ the number of source lines detected (_Sloc_ = _Loc_ - _Comments_ - _Blanks_)
 - _IsTest_ a boolean to indicate if the examiner detected the file to be a test file
+- _Copyrights_ an array of copyrights found in the file (only available if `DetectCopyrights` is set in config)
 
 ## Detecting Copyrights
 
