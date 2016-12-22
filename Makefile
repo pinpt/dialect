@@ -1,4 +1,4 @@
-.PHONY: all clean version version-short fmt vet test
+.PHONY: clean version version-short fmt vet test
 
 VERSION := 0.0.1
 NAME := dialect
@@ -6,14 +6,14 @@ ORG := pinpt
 PKG := $(ORG)/$(NAME)
 
 SHELL := /bin/bash
-#BASEDIR := $(shell echo $${PWD})
-#BUILD := $(shell git rev-parse HEAD | cut -c1-8)
+BASEDIR := $(shell echo $${PWD})
+BUILD := $(shell git rev-parse HEAD | cut -c1-8)
 SRC := $(shell find . -type f -name '*.go' -not -path './vendor/*' -not -path './.git/*')
 PKGMAIN := cmd/$(NAME)/main.go
 
 L="-X=github.com/$(PKG)/cmd/main.Build=$(BUILD) -X=github.com/$(PKG)/cmd/main.Version=$(VERSION)"
 
-all: version build osx
+all: version fmt vet test
 
 version:
 	@echo "version: $(VERSION) (build: $(BUILD))"

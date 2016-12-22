@@ -140,4 +140,9 @@ func Examine(language string, filename string, reader io.Reader, config *Dialect
 // RegisterExaminer function is used to register an implementation of the DialectExaminer interface
 func RegisterExaminer(language string, examiner DialectExaminer) {
 	examiners[language] = examiner
+	// add lowercase if not the same
+	lc := strings.ToLower(language)
+	if lc != language {
+		examiners[lc] = examiner
+	}
 }
