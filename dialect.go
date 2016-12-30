@@ -53,6 +53,69 @@ type DialectExaminer interface {
 	Examine(language string, filename string, line *DialectLine) error
 }
 
+type DialectContext struct {
+	Language   string
+	Filename   string
+	Config     *DialectConfiguration
+	Examiner   DialectExaminer
+	LineNumber int
+	Result     *DialectResult
+	Buffer     bytes.Buffer
+}
+
+const EOL = byte('\n')
+
+func (ctx *DialectContext) ProcessLine(buf []byte, eof bool) (*DialectLine, error) {
+	ctx.LineNumber++
+	contents := string(buf)
+	ctx.Buffer.WriteString(contents)
+	ctx.Buffer.WriteByte(EOL)
+	line := &DialectLine{
+		EOF:        eof,
+		LineNumber: ctx.LineNumber,
+		Contents:   contents,
+		IsBlank:    strings.TrimSpace(contents) == "",
+		Buffer:     ctx.Buffer.String(),
+		Config:     ctx.Config,
+	}
+	if line.IsBlank == false {
+		if err := ctx.Examiner.Examine(ctx.Language, ctx.Filename, line); err != nil {
+			return nil, err
+		}
+	}
+	if ctx.Config != nil && ctx.Config.Callback != nil {
+		if err := ctx.Config.Callback(ctx.Language, line); err != nil {
+			return nil, err
+		}
+	}
+	if line.IsBlank {
+		ctx.Result.Blanks++
+	}
+	if line.IsComment {
+		ctx.Result.Comments++
+		if ctx.Config != nil && ctx.Config.DetectCopyrights {
+			comment, err := copyright.ParseCopyright(line.Contents)
+			if err != nil {
+				return nil, err
+			}
+			if comment != nil && comment.Found {
+				if ctx.Result.Copyrights == nil {
+					ctx.Result.Copyrights = make([]*copyright.CopyrightResult, 0)
+				}
+				ctx.Result.Copyrights = append(ctx.Result.Copyrights, comment)
+			}
+		}
+	}
+	if line.IsCode {
+		ctx.Result.Sloc++
+	}
+	if line.IsTest {
+		ctx.Result.IsTest = true
+	}
+	ctx.Result.Loc++
+	return line, nil
+}
+
 var examiners = make(map[string]DialectExaminer)
 
 // CreateDefaultConfiguration will return a default configuration
@@ -67,8 +130,8 @@ func CreateConfigurationWithCallback(callback DialectResultCallback) *DialectCon
 	}
 }
 
-// Examine function is used to detect information about the source code
-func Examine(language string, filename string, reader io.Reader, config *DialectConfiguration) (*DialectResult, error) {
+// CreateLineByLineExaminer returns an interface which can be called with each line using the ProcessLine function
+func CreateLineByLineExaminer(language string, filename string, config *DialectConfiguration) (*DialectContext, error) {
 	ex := examiners[language]
 	if ex == nil {
 		ex = examiners["*"]
@@ -76,65 +139,38 @@ func Examine(language string, filename string, reader io.Reader, config *Dialect
 	if ex == nil {
 		return nil, errors.New("the default dialect wasn't registered")
 	}
-	var LineNumber int
-	result := &DialectResult{}
-	eol := byte('\n')
+	ctx := &DialectContext{
+		Language: language,
+		Filename: filename,
+		Config:   config,
+		Examiner: ex,
+		Result:   &DialectResult{},
+	}
+	return ctx, nil
+}
+
+// Examine function is used to detect information about the source code
+func Examine(language string, filename string, reader io.Reader, config *DialectConfiguration) (*DialectResult, error) {
+	ctx, err := CreateLineByLineExaminer(language, filename, config)
+	if err != nil {
+		return nil, err
+	}
 	buf := bufio.NewReader(reader)
-	var b bytes.Buffer
 	for {
-		LineNumber++
 		contents, err := buf.ReadString('\n')
 		eof := err == io.EOF
-		b.WriteString(contents)
-		b.WriteByte(eol)
-		line := &DialectLine{
-			EOF:        eof,
-			LineNumber: LineNumber,
-			Contents:   contents,
-			IsBlank:    strings.TrimSpace(contents) == "",
-			Buffer:     b.String(),
-			Config:     config,
+		if err != nil && eof == false {
+			return nil, err
 		}
-		if line.IsBlank == false {
-			if err := ex.Examine(language, filename, line); err != nil {
-				return nil, err
-			}
+		_, err = ctx.ProcessLine([]byte(contents), eof)
+		if err != nil {
+			return nil, err
 		}
-		if config != nil && config.Callback != nil {
-			if err := config.Callback(language, line); err != nil {
-				return nil, err
-			}
-		}
-		if line.IsBlank {
-			result.Blanks++
-		}
-		if line.IsComment {
-			result.Comments++
-			if config != nil && config.DetectCopyrights {
-				comment, err := copyright.ParseCopyright(line.Contents)
-				if err != nil {
-					return nil, err
-				}
-				if comment != nil && comment.Found {
-					if result.Copyrights == nil {
-						result.Copyrights = make([]*copyright.CopyrightResult, 0)
-					}
-					result.Copyrights = append(result.Copyrights, comment)
-				}
-			}
-		}
-		if line.IsCode {
-			result.Sloc++
-		}
-		if line.IsTest {
-			result.IsTest = true
-		}
-		result.Loc++
 		if eof {
 			break
 		}
 	}
-	return result, nil
+	return ctx.Result, nil
 }
 
 // RegisterExaminer function is used to register an implementation of the DialectExaminer interface

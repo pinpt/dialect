@@ -57,6 +57,24 @@ The fields are the following:
 - _IsTest_ a boolean to indicate if the examiner detected the file to be a test file
 - _Copyrights_ an array of copyrights found in the file (only available if `DetectCopyrights` is set in config)
 
+## Detecting line by line
+
+Instead of using a Reader, you can feed data line by line.
+
+```go
+config := dialect.CreateDefaultConfiguration()
+ex, err := dialect.CreateLineByLineExaminer("JavaScript", "foo.js", config)
+if err != nil {
+	panic(err)
+}
+// pass true as 2nd argument to indicate the EOF
+_, err = ex.ProcessLine("var a = 1", true)
+if err != nil {
+	panic(err)
+}
+// results will be in ex.Results
+```
+
 ## Detecting Copyrights
 
 You can detect Copyrights in source code by setting the configuration field `DetectCopyrights` to `true`.

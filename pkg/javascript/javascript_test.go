@@ -322,3 +322,43 @@ var a = 1
 		t.Fatalf("result.Copyrights[0].Name should have been \"A Pinpoint PBC\", was %s", copyright.Name)
 	}
 }
+
+func TestLineByLineReader(t *testing.T) {
+	config := dialect.CreateDefaultConfiguration()
+	ex, err := dialect.CreateLineByLineExaminer("JavaScript", "foo.js", config)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// pass true as 2nd argument to indicate the EOF
+	line, err := ex.ProcessLine([]byte("var a = 1"), true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if line == nil {
+		t.Fatal("line was nil")
+	}
+	if line.LineNumber != 1 {
+		t.Fatalf("expected LineNumber to be 1, was %d", line.LineNumber)
+	}
+	if line.EOF == false {
+		t.Fatal("expected EOF to be true, was false")
+	}
+	if ex.Result == nil {
+		t.Fatal("Result was nil")
+	}
+	if ex.Result.Blanks != 0 {
+		t.Fatalf("Blanks should have been 0, was %d", ex.Result.Blanks)
+	}
+	if ex.Result.Loc != 1 {
+		t.Fatalf("Loc should have been 1, was %d", ex.Result.Loc)
+	}
+	if ex.Result.Sloc != 1 {
+		t.Fatalf("Sloc should have been 1, was %d", ex.Result.Sloc)
+	}
+	if ex.Result.Comments != 0 {
+		t.Fatalf("Comments should have been 0, was %d", ex.Result.Comments)
+	}
+	if ex.Result.IsTest {
+		t.Fatal("IsTest should have been false, was true")
+	}
+}
