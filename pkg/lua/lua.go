@@ -2,11 +2,16 @@ package lua
 
 import (
 	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/lua/busted"
 	"strings"
 )
 
 type LuaExaminer struct {
 	inDoubleComment bool
+}
+
+func isTest(line *dialect.DialectLine) bool {
+	return busted.IsTest(line)
 }
 
 func (e *LuaExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
@@ -29,6 +34,9 @@ func (e *LuaExaminer) Examine(language string, filename string, line *dialect.Di
 			// regular code
 			line.IsCode = true
 		}
+	}
+	if line.IsTest == false {
+		line.IsTest = isTest(line)
 	}
 
 	return nil
