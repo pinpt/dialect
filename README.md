@@ -20,7 +20,7 @@ package main
 import (
 	"fmt"
 	"github.com/pinpt/dialect"
-	_ "github.com/pinpt/dialect/languages"
+	_ "github.com/pinpt/dialect/pkg/languages"
 	"strings"
 )
 
