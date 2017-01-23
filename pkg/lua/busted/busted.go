@@ -7,7 +7,7 @@ import (
 
 var (
 	containsDescribe = regexp.MustCompile("describe\\s*\\(")
-	containsIt       = regexp.MustCompile("it\\s?(\\.only|skip)?\\s?\\(")
+	containsIt       = regexp.MustCompile("it\\s?\\(")
 )
 
 func IsTest(line *dialect.DialectLine) bool {
