@@ -13,6 +13,7 @@ import (
 	_ "github.com/pinpt/dialect/pkg/java"
 	_ "github.com/pinpt/dialect/pkg/javascript"
 	_ "github.com/pinpt/dialect/pkg/json"
+	_ "github.com/pinpt/dialect/pkg/lua"
 	_ "github.com/pinpt/dialect/pkg/makefile"
 	_ "github.com/pinpt/dialect/pkg/markdown"
 	_ "github.com/pinpt/dialect/pkg/objc"
