@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	_ "github.com/pinpt/dialect/pkg/cmake"
 	_ "github.com/pinpt/dialect/pkg/coffeescript"
 	_ "github.com/pinpt/dialect/pkg/csharp"
 	_ "github.com/pinpt/dialect/pkg/css"
