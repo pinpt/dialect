@@ -20,7 +20,6 @@ This is a list of things we want to do to Dialect.
 - [ ] Add `Awk`
 - [ ] Add `Batchfile` (fix windows command)
 - [ ] Add `Bison`
-- [ ] Add `CMake`
 - [ ] Add `COBOL`
 - [ ] Add `CSON`
 - [ ] Add `CSV`
@@ -55,7 +54,6 @@ This is a list of things we want to do to Dialect.
 - [ ] Add `LLVM`
 - [ ] Add `Less`
 - [ ] Add `Lex`
-- [ ] Add `Lua`
 - [ ] Add `Mathematica`
 - [ ] Add `Matlab`
 - [ ] Add `Maven POM`
@@ -95,3 +93,6 @@ This is a list of things we want to do to Dialect.
 - [ ] Add `XSLT`
 - [ ] Add `Yacc`
 - [ ] Add `reStructuredText`
+
+
+TODO: Add more frameworks

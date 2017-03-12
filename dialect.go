@@ -44,6 +44,11 @@ type DialectLine struct {
 	Config     *DialectConfiguration
 }
 
+// DialectFramework is details about a framework that the project supports
+type DialectFramework struct {
+	Name string
+}
+
 // DialectResultCallback is a callback function for receiving per line results as the code is being examined
 type DialectResultCallback func(language string, line *DialectLine) error
 
@@ -51,6 +56,11 @@ type DialectResultCallback func(language string, line *DialectLine) error
 type DialectExaminer interface {
 	NewExaminer() DialectExaminer
 	Examine(language string, filename string, line *DialectLine) error
+}
+
+// DialectFramework is the interface that framework processors must implement to handle details about a specific framework
+type DialectFrameworkProcessor interface {
+	Detect(directory string) ([]*DialectFramework, error)
 }
 
 type DialectContext struct {
@@ -117,6 +127,7 @@ func (ctx *DialectContext) ProcessLine(buf []byte, eof bool) (*DialectLine, erro
 }
 
 var examiners = make(map[string]DialectExaminer)
+var processors = make(map[string]DialectFrameworkProcessor)
 
 // CreateDefaultConfiguration will return a default configuration
 func CreateDefaultConfiguration() *DialectConfiguration {
@@ -149,7 +160,7 @@ func CreateLineByLineExaminer(language string, filename string, config *DialectC
 	return ctx, nil
 }
 
-// Examine function is used to detect information about the source code
+// Examine is used to detect information about the source code
 func Examine(language string, filename string, reader io.Reader, config *DialectConfiguration) (*DialectResult, error) {
 	ctx, err := CreateLineByLineExaminer(language, filename, config)
 	if err != nil {
@@ -173,7 +184,25 @@ func Examine(language string, filename string, reader io.Reader, config *Dialect
 	return ctx.Result, nil
 }
 
-// RegisterExaminer function is used to register an implementation of the DialectExaminer interface
+// Detect will attempt to detect all the frameworks for a given project source directory
+func DetectFrameworks(directory string) ([]*DialectFramework, error) {
+	frameworks := make([]*DialectFramework, 0)
+	for _, processor := range processors {
+		results, err := processor.Detect(directory)
+		if err != nil {
+			return nil, err
+		}
+		for _, r := range results {
+			frameworks = append(frameworks, r)
+		}
+	}
+	if len(frameworks) > 0 {
+		return frameworks, nil
+	}
+	return nil, nil
+}
+
+// RegisterExaminer is used to register an implementation of the DialectExaminer interface
 func RegisterExaminer(language string, examiner DialectExaminer) {
 	examiners[language] = examiner
 	// add lowercase if not the same
@@ -181,4 +210,9 @@ func RegisterExaminer(language string, examiner DialectExaminer) {
 	if lc != language {
 		examiners[lc] = examiner
 	}
+}
+
+// RegisterFrameworkProcessor is used to register an implementation of the DialectFrameworkProcessor interface
+func RegisterFrameworkProcessor(name string, processor DialectFrameworkProcessor) {
+	processors[name] = processor
 }

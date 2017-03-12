@@ -1,8 +1,11 @@
 package pkg
 
 import (
-	"github.com/pinpt/dialect"
+	"os"
+	"path"
 	"strings"
+
+	"github.com/pinpt/dialect"
 )
 
 // SingleSymbolProcessor can be used when you only have a single symbol which designates the line is a comment
@@ -28,4 +31,13 @@ func MultiSymbolProcessor(commentSymbols []string, line *dialect.DialectLine) {
 	} else {
 		line.IsCode = true
 	}
+}
+
+// FileExists returns true if the filename path exists or false if not
+func FileExists(filename ...string) bool {
+	fn := path.Join(filename...)
+	if _, err := os.Stat(fn); os.IsNotExist(err) {
+		return false
+	}
+	return true
 }
