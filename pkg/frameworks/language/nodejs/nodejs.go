@@ -5,15 +5,19 @@ import (
 	"github.com/pinpt/dialect/pkg"
 )
 
-const NAME = "nodejs"
+const (
+	NAME     = "nodejs"
+	FILENAME = "package.json"
+	TYPE     = dialect.DialectFrameworkLanguage
+)
 
-var RESULT = []*dialect.DialectFramework{{Name: NAME}}
+var RESULT = []*dialect.DialectFramework{{Name: NAME, Type: TYPE}}
 
 type NodeJSProcessor struct {
 }
 
 func (p *NodeJSProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
-	if pkg.FileExists(directory, "package.json") {
+	if pkg.FileExists(directory, FILENAME) {
 		return RESULT, nil
 	}
 	return nil, nil

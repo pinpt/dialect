@@ -11,6 +11,11 @@ import (
 	"github.com/pinpt/dialect/pkg/copyright"
 )
 
+var (
+	Build   string
+	Version string
+)
+
 // DialectResult is returned from Examine to describe the code
 type DialectResult struct {
 	Blanks     int
@@ -44,9 +49,18 @@ type DialectLine struct {
 	Config     *DialectConfiguration
 }
 
+type DialectFrameworkType string
+
+const (
+	DialectFrameworkBuild     DialectFrameworkType = "build"
+	DialectFrameworkLanguage  DialectFrameworkType = "language"
+	DialectFrameworkContainer DialectFrameworkType = "container"
+)
+
 // DialectFramework is details about a framework that the project supports
 type DialectFramework struct {
-	Name string
+	Name string               `json:"name"`
+	Type DialectFrameworkType `json:"type"`
 }
 
 // DialectResultCallback is a callback function for receiving per line results as the code is being examined
