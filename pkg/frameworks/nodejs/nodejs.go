@@ -7,12 +7,14 @@ import (
 
 const NAME = "nodejs"
 
+var RESULT = []*dialect.DialectFramework{{Name: NAME}}
+
 type NodeJSProcessor struct {
 }
 
 func (p *NodeJSProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
 	if pkg.FileExists(directory, "package.json") {
-		return []*dialect.DialectFramework{{Name: NAME}}, nil
+		return RESULT, nil
 	}
 	return nil, nil
 }
