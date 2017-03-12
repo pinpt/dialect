@@ -2,12 +2,10 @@ package copyright
 
 import (
 	"testing"
-
-	"github.com/pinpt/dialect/pkg/copyright"
 )
 
 func TestCopyright1(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright (c) 2010 by Jeff Haynie")
+	result, err := ParseCopyright("copyright (c) 2010 by Jeff Haynie")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -29,7 +27,7 @@ func TestCopyright1(t *testing.T) {
 }
 
 func TestCopyright2(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright (c) 2010-2012 by Jeff Haynie")
+	result, err := ParseCopyright("copyright (c) 2010-2012 by Jeff Haynie")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -54,7 +52,7 @@ func TestCopyright2(t *testing.T) {
 }
 
 func TestCopyright3(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright 2010-2012 by Jeff Haynie")
+	result, err := ParseCopyright("copyright 2010-2012 by Jeff Haynie")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -79,7 +77,7 @@ func TestCopyright3(t *testing.T) {
 }
 
 func TestCopyright4(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright 2010-2012 Jeff Haynie")
+	result, err := ParseCopyright("copyright 2010-2012 Jeff Haynie")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,7 +102,7 @@ func TestCopyright4(t *testing.T) {
 }
 
 func TestCopyright5(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright &copy; 2010 Jeff Haynie")
+	result, err := ParseCopyright("copyright &copy; 2010 Jeff Haynie")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -126,7 +124,7 @@ func TestCopyright5(t *testing.T) {
 }
 
 func TestCopyright6(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright (c) 2010")
+	result, err := ParseCopyright("copyright (c) 2010")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -148,7 +146,7 @@ func TestCopyright6(t *testing.T) {
 }
 
 func TestCopyright7(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright © 2010")
+	result, err := ParseCopyright("copyright © 2010")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -170,7 +168,7 @@ func TestCopyright7(t *testing.T) {
 }
 
 func TestCopyright8(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright &#169; 2010")
+	result, err := ParseCopyright("copyright &#169; 2010")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -192,7 +190,7 @@ func TestCopyright8(t *testing.T) {
 }
 
 func TestCopyright9(t *testing.T) {
-	result, err := copyright.ParseCopyright("copyright &#xa9; 2010")
+	result, err := ParseCopyright("copyright &#xa9; 2010")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -214,7 +212,7 @@ func TestCopyright9(t *testing.T) {
 }
 
 func TestCopyright10(t *testing.T) {
-	result, err := copyright.ParseCopyright("// copyright 2010")
+	result, err := ParseCopyright("// copyright 2010")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -236,7 +234,7 @@ func TestCopyright10(t *testing.T) {
 }
 
 func TestCopyright11(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright 2010")
+	result, err := ParseCopyright("Copyright 2010")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -258,7 +256,7 @@ func TestCopyright11(t *testing.T) {
 }
 
 func TestCopyright12(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright 2010, 2012")
+	result, err := ParseCopyright("Copyright 2010, 2012")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -283,7 +281,7 @@ func TestCopyright12(t *testing.T) {
 }
 
 func TestCopyright13(t *testing.T) {
-	result, err := copyright.ParseCopyright("COPYRIGHT 2010, 2012")
+	result, err := ParseCopyright("COPYRIGHT 2010, 2012")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -308,7 +306,7 @@ func TestCopyright13(t *testing.T) {
 }
 
 func TestCopyright14(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright 2010 The Go Authors.  All rights reserved.")
+	result, err := ParseCopyright("Copyright 2010 The Go Authors.  All rights reserved.")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -330,7 +328,7 @@ func TestCopyright14(t *testing.T) {
 }
 
 func TestCopyright15(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright (C) 2012 by Nick Craig-Wood http://www.craig-wood.com/nick/")
+	result, err := ParseCopyright("Copyright (C) 2012 by Nick Craig-Wood http://www.craig-wood.com/nick/")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -352,7 +350,7 @@ func TestCopyright15(t *testing.T) {
 }
 
 func TestCopyright16(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright [yyyy] [name of copyright owner]")
+	result, err := ParseCopyright("Copyright [yyyy] [name of copyright owner]")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -365,7 +363,7 @@ func TestCopyright16(t *testing.T) {
 }
 
 func TestCopyright17(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright (c) 2014 Colin Marc (colinmarc@gmail.com)")
+	result, err := ParseCopyright("Copyright (c) 2014 Colin Marc (colinmarc@gmail.com)")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -387,7 +385,7 @@ func TestCopyright17(t *testing.T) {
 }
 
 func TestCopyright18(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright (c) 2016 A Pinpoint PBC")
+	result, err := ParseCopyright("Copyright (c) 2016 A Pinpoint PBC")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -414,7 +412,7 @@ func TestCopyright18(t *testing.T) {
 }
 
 func TestCopyright19(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright (c) 2016-2017 A Pinpoint PBC")
+	result, err := ParseCopyright("Copyright (c) 2016-2017 A Pinpoint PBC")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -444,7 +442,7 @@ func TestCopyright19(t *testing.T) {
 }
 
 func TestCopyright20(t *testing.T) {
-	result, err := copyright.ParseCopyright("Copyright (c) 2016-2017 A Pinpoint PBC")
+	result, err := ParseCopyright("Copyright (c) 2016-2017 A Pinpoint PBC")
 	if err != nil {
 		t.Fatal(err)
 	}

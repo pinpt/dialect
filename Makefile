@@ -31,4 +31,4 @@ vet:
 	@for i in `find . -type d -not -path './vendor/*' -not -path './.git/*' -not -path './cmd' -not -path './.*' -not -path './build/*' -not -path './backup' -not -path './vendor' -not -path '.' -not -path './build' -not -path './etc' -not -path './etc/*' -not -path './pkg' | sed 's/^\.\///g'`; do go vet github.com/$(PKG)/$$i; done
 
 test:
-	@for i in `find . -type f -name '*_test.go' -not -path './vendor/*' -not -path './.git/*'`; do go test -v $$i; done
+	@for i in `find . -type f -name '*_test.go' -not -path './vendor/*' -not -path './.git/*'`; do go test -v `dirname $$i`; done
