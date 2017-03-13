@@ -3,8 +3,13 @@ package travis
 import (
 	"testing"
 
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/implementation"
+	dialect "github.com/pinpt/dialect/pkg/types"
 )
+
+func init() {
+	dialect.RegisterDialectImplementation(implementation.New())
+}
 
 func TestFrameworkTravis(t *testing.T) {
 	frameworks, err := dialect.DetectFrameworks("./testdata")

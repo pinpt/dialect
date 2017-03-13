@@ -5,9 +5,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/implementation"
 	"github.com/pinpt/dialect/pkg/types"
+	dialect "github.com/pinpt/dialect/pkg/types"
 )
+
+func init() {
+	dialect.RegisterDialectImplementation(implementation.New())
+}
 
 func TestDefault(t *testing.T) {
 	reader := strings.NewReader("a is 1")

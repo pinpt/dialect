@@ -4,8 +4,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/implementation"
+	dialect "github.com/pinpt/dialect/pkg/types"
 )
+
+func init() {
+	dialect.RegisterDialectImplementation(implementation.New())
+}
 
 func TestCMakeNoComments(t *testing.T) {
 	reader := strings.NewReader("install(TARGETS main.x DESTINATION appcelerator/ingot)")

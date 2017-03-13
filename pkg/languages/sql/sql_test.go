@@ -4,8 +4,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/implementation"
+	dialect "github.com/pinpt/dialect/pkg/types"
 )
+
+func init() {
+	dialect.RegisterDialectImplementation(implementation.New())
+}
 
 func TestSQLNoComments(t *testing.T) {
 	reader := strings.NewReader("insert into foo values(1,2,3);")

@@ -4,8 +4,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/implementation"
+	dialect "github.com/pinpt/dialect/pkg/types"
 )
+
+func init() {
+	dialect.RegisterDialectImplementation(implementation.New())
+}
 
 func TestR(t *testing.T) {
 	reader := strings.NewReader(`"This function takes a value x, and does things and returns things that take several lines to explain"

@@ -4,10 +4,18 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"io"
 	"strings"
 
 	"github.com/pinpt/dialect/pkg/copyright"
 )
+
+// interface that the implementation will implement
+type Dialect interface {
+	CreateLineByLineExaminer(language string, filename string, config *DialectConfiguration) (*DialectContext, error)
+	Examine(language string, filename string, reader io.Reader, config *DialectConfiguration) (*DialectResult, error)
+	DetectFrameworks(directory string) ([]*DialectFramework, error)
+}
 
 // DialectResult is returned from Examine to describe the code
 type DialectResult struct {
@@ -151,6 +159,13 @@ func RegisterFrameworkProcessor(name string, processor DialectFrameworkProcessor
 	processors[name] = processor
 }
 
+var implementation Dialect
+
+// RegisterDialectImplementation is used by an implementation to register itself
+func RegisterDialectImplementation(impl Dialect) {
+	implementation = impl
+}
+
 // ExaminerForLanguage returns the implementation of DialectExaminer for language
 func ExaminerForLanguage(language string) (DialectExaminer, error) {
 	ex := examiners[language]
@@ -171,4 +186,37 @@ func Examiners() map[string]DialectExaminer {
 // Processors returns a map of DialectFrameworkProcessor
 func Processors() map[string]DialectFrameworkProcessor {
 	return processors
+}
+
+// CreateDefaultConfiguration will return a default configuration
+func CreateDefaultConfiguration() *DialectConfiguration {
+	return &DialectConfiguration{}
+}
+
+// CreateConfigurationWithCallback returns a default configuration with a callback
+func CreateConfigurationWithCallback(callback DialectResultCallback) *DialectConfiguration {
+	return &DialectConfiguration{
+		Callback: callback,
+	}
+}
+
+func CreateLineByLineExaminer(language string, filename string, config *DialectConfiguration) (*DialectContext, error) {
+	if implementation == nil {
+		return nil, errors.New("no Dialect implementation registered")
+	}
+	return implementation.CreateLineByLineExaminer(language, filename, config)
+}
+
+func Examine(language string, filename string, reader io.Reader, config *DialectConfiguration) (*DialectResult, error) {
+	if implementation == nil {
+		return nil, errors.New("no Dialect implementation registered")
+	}
+	return implementation.Examine(language, filename, reader, config)
+}
+
+func DetectFrameworks(directory string) ([]*DialectFramework, error) {
+	if implementation == nil {
+		return nil, errors.New("no Dialect implementation registered")
+	}
+	return implementation.DetectFrameworks(directory)
 }
