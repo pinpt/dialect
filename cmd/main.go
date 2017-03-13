@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/pinpt/dialect"
-	_ "github.com/pinpt/dialect/pkg/languages"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
-func dump(result *dialect.DialectResult, fn string) {
+func dump(result *types.DialectResult, fn string) {
 	fmt.Printf("Statistics for %s:\n\n", fn)
 	fmt.Printf("     SLOC:  %5d\n", result.Sloc)
 	fmt.Printf(" Comments:  %5d\n", result.Comments)
@@ -19,7 +19,7 @@ func dump(result *dialect.DialectResult, fn string) {
 	fmt.Println()
 }
 
-func sum(a *dialect.DialectResult, b *dialect.DialectResult) {
+func sum(a *types.DialectResult, b *types.DialectResult) {
 	a.Sloc += b.Sloc
 	a.Loc += b.Loc
 	a.Comments += b.Comments
@@ -47,7 +47,8 @@ func main() {
 	}
 
 	if stats.IsDir() {
-		//FIXME
+		fmt.Println("expected a filename, was a directory")
+		os.Exit(1)
 	} else {
 		reader, err := os.Open(fn)
 		if err != nil {
