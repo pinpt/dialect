@@ -1,7 +1,7 @@
 package cmake
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -9,7 +9,7 @@ type CMakeExaminer struct {
 	inDoubleComment bool
 }
 
-func (e *CMakeExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *CMakeExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if strings.HasPrefix(lineBuf, "# ") {
 		// a single line comment
@@ -22,11 +22,11 @@ func (e *CMakeExaminer) Examine(language string, filename string, line *dialect.
 	return nil
 }
 
-func (e *CMakeExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *CMakeExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(CMakeExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("CMake", &CMakeExaminer{})
+	types.RegisterExaminer("CMake", &CMakeExaminer{})
 }

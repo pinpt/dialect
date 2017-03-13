@@ -1,7 +1,7 @@
 package cstyle
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -9,7 +9,7 @@ type CStyleExaminer struct {
 	inDoubleComment bool
 }
 
-func (e *CStyleExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *CStyleExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if e.inDoubleComment {
 		// ending of a double comment
@@ -38,31 +38,31 @@ func (e *CStyleExaminer) Examine(language string, filename string, line *dialect
 	return nil
 }
 
-func (e *CStyleExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *CStyleExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(CStyleExaminer)
 	return ex
 }
 
 func init() {
 	examiner := &CStyleExaminer{}
-	dialect.RegisterExaminer("Apex", examiner)
-	dialect.RegisterExaminer("AGS Script", examiner)
-	dialect.RegisterExaminer("Arduino", examiner)
-	dialect.RegisterExaminer("C", examiner)
-	dialect.RegisterExaminer("C++", examiner)
-	dialect.RegisterExaminer("ChucK", examiner)
-	dialect.RegisterExaminer("Cuda", examiner)
-	dialect.RegisterExaminer("DTrace", examiner)
-	dialect.RegisterExaminer("EQ", examiner)
-	dialect.RegisterExaminer("Game Maker Language", examiner)
-	dialect.RegisterExaminer("Kotlin", examiner)
-	dialect.RegisterExaminer("Metal", examiner)
-	dialect.RegisterExaminer("OpenCL", examiner)
-	dialect.RegisterExaminer("Scala", examiner)
-	dialect.RegisterExaminer("Squirrel", examiner)
-	dialect.RegisterExaminer("Unified Parallel C", examiner)
-	dialect.RegisterExaminer("Uno", examiner)
-	dialect.RegisterExaminer("UnrealScript", examiner)
-	dialect.RegisterExaminer("XC", examiner)
-	dialect.RegisterExaminer("XS", examiner)
+	types.RegisterExaminer("Apex", examiner)
+	types.RegisterExaminer("AGS Script", examiner)
+	types.RegisterExaminer("Arduino", examiner)
+	types.RegisterExaminer("C", examiner)
+	types.RegisterExaminer("C++", examiner)
+	types.RegisterExaminer("ChucK", examiner)
+	types.RegisterExaminer("Cuda", examiner)
+	types.RegisterExaminer("DTrace", examiner)
+	types.RegisterExaminer("EQ", examiner)
+	types.RegisterExaminer("Game Maker Language", examiner)
+	types.RegisterExaminer("Kotlin", examiner)
+	types.RegisterExaminer("Metal", examiner)
+	types.RegisterExaminer("OpenCL", examiner)
+	types.RegisterExaminer("Scala", examiner)
+	types.RegisterExaminer("Squirrel", examiner)
+	types.RegisterExaminer("Unified Parallel C", examiner)
+	types.RegisterExaminer("Uno", examiner)
+	types.RegisterExaminer("UnrealScript", examiner)
+	types.RegisterExaminer("XC", examiner)
+	types.RegisterExaminer("XS", examiner)
 }

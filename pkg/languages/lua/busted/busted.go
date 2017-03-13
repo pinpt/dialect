@@ -1,7 +1,7 @@
 package busted
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"regexp"
 )
 
@@ -10,6 +10,6 @@ var (
 	containsIt       = regexp.MustCompile("it\\s?\\(")
 )
 
-func IsTest(line *dialect.DialectLine) bool {
+func IsTest(line *types.DialectLine) bool {
 	return containsDescribe.MatchString(line.Buffer) && containsIt.MatchString(line.Buffer)
 }

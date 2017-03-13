@@ -1,22 +1,22 @@
 package nodejs
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 const (
 	NAME     = "nodejs"
 	FILENAME = "package.json"
-	TYPE     = dialect.DialectFrameworkLanguage
+	TYPE     = types.DialectFrameworkLanguage
 )
 
-var RESULT = []*dialect.DialectFramework{{Name: NAME, Type: TYPE}}
+var RESULT = []*types.DialectFramework{{Name: NAME, Type: TYPE}}
 
 type NodeJSProcessor struct {
 }
 
-func (p *NodeJSProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
+func (p *NodeJSProcessor) Detect(directory string) ([]*types.DialectFramework, error) {
 	if pkg.FileExists(directory, FILENAME) {
 		return RESULT, nil
 	}
@@ -24,5 +24,5 @@ func (p *NodeJSProcessor) Detect(directory string) ([]*dialect.DialectFramework,
 }
 
 func init() {
-	dialect.RegisterFrameworkProcessor(NAME, &NodeJSProcessor{})
+	types.RegisterFrameworkProcessor(NAME, &NodeJSProcessor{})
 }

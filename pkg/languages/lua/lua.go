@@ -1,8 +1,8 @@
 package lua
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/lua/busted"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -10,11 +10,11 @@ type LuaExaminer struct {
 	inDoubleComment bool
 }
 
-func isTest(line *dialect.DialectLine) bool {
+func isTest(line *types.DialectLine) bool {
 	return busted.IsTest(line)
 }
 
-func (e *LuaExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *LuaExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if e.inDoubleComment {
 		// ending of a double comment
@@ -43,11 +43,11 @@ func (e *LuaExaminer) Examine(language string, filename string, line *dialect.Di
 
 }
 
-func (e *LuaExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *LuaExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(LuaExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("Lua", &LuaExaminer{})
+	types.RegisterExaminer("Lua", &LuaExaminer{})
 }

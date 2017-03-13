@@ -1,8 +1,8 @@
-package gopkg
+package golang
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/cstyle"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -10,11 +10,11 @@ type GoExaminer struct {
 	Delegate cstyle.CStyleExaminer
 }
 
-func isTest(filename string, line *dialect.DialectLine) bool {
+func isTest(filename string, line *types.DialectLine) bool {
 	return strings.HasSuffix(filename, "_test.go")
 }
 
-func (e *GoExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *GoExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	// handle the first line build flag as regular code
 	if line.LineNumber == 1 && strings.HasPrefix(line.Contents, "// +build ") {
 		line.IsCode = true
@@ -34,11 +34,11 @@ func (e *GoExaminer) Examine(language string, filename string, line *dialect.Dia
 	return nil
 }
 
-func (e *GoExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *GoExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(GoExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("Go", &GoExaminer{})
+	types.RegisterExaminer("Go", &GoExaminer{})
 }

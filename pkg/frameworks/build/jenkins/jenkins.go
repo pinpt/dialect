@@ -1,22 +1,22 @@
 package jenkins
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 const (
 	NAME     = "jenkins"
 	FILENAME = "Jenkinsfile"
-	TYPE     = dialect.DialectFrameworkBuild
+	TYPE     = types.DialectFrameworkBuild
 )
 
-var RESULT = []*dialect.DialectFramework{{Name: NAME, Type: TYPE}}
+var RESULT = []*types.DialectFramework{{Name: NAME, Type: TYPE}}
 
 type JenkinsProcessor struct {
 }
 
-func (p *JenkinsProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
+func (p *JenkinsProcessor) Detect(directory string) ([]*types.DialectFramework, error) {
 	if pkg.FileExists(directory, FILENAME) {
 		return RESULT, nil
 	}
@@ -24,5 +24,5 @@ func (p *JenkinsProcessor) Detect(directory string) ([]*dialect.DialectFramework
 }
 
 func init() {
-	dialect.RegisterFrameworkProcessor(NAME, &JenkinsProcessor{})
+	types.RegisterFrameworkProcessor(NAME, &JenkinsProcessor{})
 }

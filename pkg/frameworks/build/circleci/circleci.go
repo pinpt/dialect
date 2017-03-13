@@ -1,22 +1,22 @@
 package circleci
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 const (
 	NAME     = "circleci"
 	FILENAME = "circle.yml"
-	TYPE     = dialect.DialectFrameworkBuild
+	TYPE     = types.DialectFrameworkBuild
 )
 
-var RESULT = []*dialect.DialectFramework{{Name: NAME, Type: TYPE}}
+var RESULT = []*types.DialectFramework{{Name: NAME, Type: TYPE}}
 
 type CircleCIProcessor struct {
 }
 
-func (p *CircleCIProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
+func (p *CircleCIProcessor) Detect(directory string) ([]*types.DialectFramework, error) {
 	if pkg.FileExists(directory, FILENAME) {
 		return RESULT, nil
 	}
@@ -24,5 +24,5 @@ func (p *CircleCIProcessor) Detect(directory string) ([]*dialect.DialectFramewor
 }
 
 func init() {
-	dialect.RegisterFrameworkProcessor(NAME, &CircleCIProcessor{})
+	types.RegisterFrameworkProcessor(NAME, &CircleCIProcessor{})
 }

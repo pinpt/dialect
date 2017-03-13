@@ -1,7 +1,7 @@
 package r
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -9,7 +9,7 @@ type RExaminer struct {
 	inDoubleComment bool
 }
 
-func (e *RExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *RExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if e.inDoubleComment {
 		// ending of a double comment
@@ -35,11 +35,11 @@ func (e *RExaminer) Examine(language string, filename string, line *dialect.Dial
 	return nil
 }
 
-func (e *RExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *RExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(RExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("R", &RExaminer{})
+	types.RegisterExaminer("R", &RExaminer{})
 }

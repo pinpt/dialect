@@ -1,8 +1,8 @@
 package ruby
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/ruby/selenium"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -11,11 +11,11 @@ type RubyExaminer struct {
 	done            bool
 }
 
-func isTest(line *dialect.DialectLine) bool {
+func isTest(line *types.DialectLine) bool {
 	return selenium.IsTest(line)
 }
 
-func (e *RubyExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *RubyExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if lineBuf == "__END__" {
 		e.done = true
@@ -43,11 +43,11 @@ func (e *RubyExaminer) Examine(language string, filename string, line *dialect.D
 	return nil
 }
 
-func (e *RubyExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *RubyExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(RubyExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("Ruby", &RubyExaminer{})
+	types.RegisterExaminer("Ruby", &RubyExaminer{})
 }

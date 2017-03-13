@@ -1,20 +1,20 @@
 package php
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/cstyle"
 	"github.com/pinpt/dialect/pkg/languages/php/selenium"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 type PHPExaminer struct {
 	Delegate cstyle.CStyleExaminer
 }
 
-func isTest(line *dialect.DialectLine) bool {
+func isTest(line *types.DialectLine) bool {
 	return selenium.IsTest(line)
 }
 
-func (e *PHPExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *PHPExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	if err := e.Delegate.Examine(language, filename, line); err != nil {
 		return err
 	}
@@ -24,11 +24,11 @@ func (e *PHPExaminer) Examine(language string, filename string, line *dialect.Di
 	return nil
 }
 
-func (e *PHPExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *PHPExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(PHPExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("PHP", &PHPExaminer{})
+	types.RegisterExaminer("PHP", &PHPExaminer{})
 }

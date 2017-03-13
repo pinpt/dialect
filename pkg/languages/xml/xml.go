@@ -1,7 +1,7 @@
 package xml
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -9,7 +9,7 @@ type XMLExaminer struct {
 	inDoubleComment bool
 }
 
-func (e *XMLExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *XMLExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if e.inDoubleComment {
 		line.IsComment = true
@@ -30,14 +30,14 @@ func (e *XMLExaminer) Examine(language string, filename string, line *dialect.Di
 	return nil
 }
 
-func (e *XMLExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *XMLExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(XMLExaminer)
 	return ex
 }
 
 func init() {
 	ex := &XMLExaminer{}
-	dialect.RegisterExaminer("XML", ex)
-	dialect.RegisterExaminer("XHTML", ex)
-	dialect.RegisterExaminer("HTML", ex)
+	types.RegisterExaminer("XML", ex)
+	types.RegisterExaminer("XHTML", ex)
+	types.RegisterExaminer("HTML", ex)
 }

@@ -1,22 +1,22 @@
 package travis
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 const (
 	NAME     = "travis"
 	FILENAME = ".travis.yml"
-	TYPE     = dialect.DialectFrameworkBuild
+	TYPE     = types.DialectFrameworkBuild
 )
 
-var RESULT = []*dialect.DialectFramework{{Name: NAME, Type: TYPE}}
+var RESULT = []*types.DialectFramework{{Name: NAME, Type: TYPE}}
 
 type TravisProcessor struct {
 }
 
-func (p *TravisProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
+func (p *TravisProcessor) Detect(directory string) ([]*types.DialectFramework, error) {
 	if pkg.FileExists(directory, FILENAME) {
 		return RESULT, nil
 	}
@@ -24,5 +24,5 @@ func (p *TravisProcessor) Detect(directory string) ([]*dialect.DialectFramework,
 }
 
 func init() {
-	dialect.RegisterFrameworkProcessor(NAME, &TravisProcessor{})
+	types.RegisterFrameworkProcessor(NAME, &TravisProcessor{})
 }

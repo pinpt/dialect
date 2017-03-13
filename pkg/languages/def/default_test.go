@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 func TestDefault(t *testing.T) {
@@ -36,7 +37,7 @@ func TestDefault(t *testing.T) {
 
 func TestDefaultCallback(t *testing.T) {
 	var invoked bool
-	callback := func(language string, line *dialect.DialectLine) error {
+	callback := func(language string, line *types.DialectLine) error {
 		invoked = true
 		if line.IsComment {
 			return errors.New("IsComment should have been false")
@@ -81,7 +82,7 @@ func TestDefaultCallback(t *testing.T) {
 }
 
 func TestDefaultCallbackWithError(t *testing.T) {
-	callback := func(language string, line *dialect.DialectLine) error {
+	callback := func(language string, line *types.DialectLine) error {
 		return errors.New("test")
 	}
 	reader := strings.NewReader("a is 1")

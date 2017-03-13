@@ -1,7 +1,7 @@
 package ava
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"regexp"
 )
 
@@ -10,6 +10,6 @@ var (
 	containsTest = regexp.MustCompile("test\\s*\\(")
 )
 
-func IsTest(line *dialect.DialectLine) bool {
+func IsTest(line *types.DialectLine) bool {
 	return containsAva.MatchString(line.Buffer) && containsTest.MatchString(line.Buffer)
 }

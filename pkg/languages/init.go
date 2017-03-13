@@ -9,7 +9,7 @@ import (
 	_ "github.com/pinpt/dialect/pkg/languages/def"
 	_ "github.com/pinpt/dialect/pkg/languages/docker"
 	_ "github.com/pinpt/dialect/pkg/languages/ejs"
-	_ "github.com/pinpt/dialect/pkg/languages/gopkg"
+	_ "github.com/pinpt/dialect/pkg/languages/golang"
 	_ "github.com/pinpt/dialect/pkg/languages/haskell"
 	_ "github.com/pinpt/dialect/pkg/languages/java"
 	_ "github.com/pinpt/dialect/pkg/languages/javascript"

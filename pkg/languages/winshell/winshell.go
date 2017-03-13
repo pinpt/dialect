@@ -1,23 +1,23 @@
 package winshell
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 type WinShellExaminer struct {
 }
 
-func (e *WinShellExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *WinShellExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	pkg.SingleSymbolProcessor("REM ", line)
 	return nil
 }
 
-func (e *WinShellExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *WinShellExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(WinShellExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("WinShell", &WinShellExaminer{})
+	types.RegisterExaminer("WinShell", &WinShellExaminer{})
 }

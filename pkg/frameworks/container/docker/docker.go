@@ -1,22 +1,22 @@
 package docker
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 const (
 	NAME     = "docker"
 	FILENAME = "Dockerfile"
-	TYPE     = dialect.DialectFrameworkContainer
+	TYPE     = types.DialectFrameworkContainer
 )
 
-var RESULT = []*dialect.DialectFramework{{Name: NAME, Type: TYPE}}
+var RESULT = []*types.DialectFramework{{Name: NAME, Type: TYPE}}
 
 type DockerProcessor struct {
 }
 
-func (p *DockerProcessor) Detect(directory string) ([]*dialect.DialectFramework, error) {
+func (p *DockerProcessor) Detect(directory string) ([]*types.DialectFramework, error) {
 	if pkg.FileExists(directory, FILENAME) {
 		return RESULT, nil
 	}
@@ -24,5 +24,5 @@ func (p *DockerProcessor) Detect(directory string) ([]*dialect.DialectFramework,
 }
 
 func init() {
-	dialect.RegisterFrameworkProcessor(NAME, &DockerProcessor{})
+	types.RegisterFrameworkProcessor(NAME, &DockerProcessor{})
 }

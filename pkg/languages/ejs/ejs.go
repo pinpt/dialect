@@ -1,9 +1,9 @@
 package ejs
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/javascript"
 	"github.com/pinpt/dialect/pkg/languages/xml"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 type EJSExaminer struct {
@@ -11,14 +11,14 @@ type EJSExaminer struct {
 	JS  javascript.JavaScriptExaminer
 }
 
-func (e *EJSExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *EJSExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	// EJS is a combination (usually) of HTML and JS so we're going to use both
-	r1 := &dialect.DialectLine{
+	r1 := &types.DialectLine{
 		LineNumber: line.LineNumber,
 		Contents:   line.Contents,
 		Buffer:     line.Buffer,
 	}
-	r2 := &dialect.DialectLine{
+	r2 := &types.DialectLine{
 		LineNumber: line.LineNumber,
 		Contents:   line.Contents,
 		Buffer:     line.Buffer,
@@ -48,11 +48,11 @@ func (e *EJSExaminer) Examine(language string, filename string, line *dialect.Di
 	return nil
 }
 
-func (e *EJSExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *EJSExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(EJSExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("EJS", &EJSExaminer{})
+	types.RegisterExaminer("EJS", &EJSExaminer{})
 }

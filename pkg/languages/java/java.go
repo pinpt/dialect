@@ -1,21 +1,21 @@
 package java
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/cstyle"
 	"github.com/pinpt/dialect/pkg/languages/java/junit"
 	"github.com/pinpt/dialect/pkg/languages/java/selenium"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 type JavaExaminer struct {
 	Delegate cstyle.CStyleExaminer
 }
 
-func isTest(line *dialect.DialectLine) bool {
+func isTest(line *types.DialectLine) bool {
 	return junit.IsTest(line) || selenium.IsTest(line)
 }
 
-func (e *JavaExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *JavaExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	if err := e.Delegate.Examine(language, filename, line); err != nil {
 		return err
 	}
@@ -25,11 +25,11 @@ func (e *JavaExaminer) Examine(language string, filename string, line *dialect.D
 	return nil
 }
 
-func (e *JavaExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *JavaExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(JavaExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("Java", &JavaExaminer{})
+	types.RegisterExaminer("Java", &JavaExaminer{})
 }

@@ -1,11 +1,11 @@
 package xctest
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
-func IsTest(line *dialect.DialectLine) bool {
+func IsTest(line *types.DialectLine) bool {
 	return strings.Contains(line.Buffer, "XCTestCase") ||
 		strings.Contains(line.Buffer, "XCTest.h")
 }

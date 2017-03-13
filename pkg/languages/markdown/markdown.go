@@ -1,25 +1,25 @@
 package markdown
 
 import (
-	"github.com/pinpt/dialect"
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 type MarkdownExaminer struct {
 }
 
-func (e *MarkdownExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *MarkdownExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	// all lines are code in JSON (excluding blank lines which is handled by the caller)
 	line.IsCode = true
 	return nil
 }
 
-func (e *MarkdownExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *MarkdownExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(MarkdownExaminer)
 	return ex
 }
 
 func init() {
 	ex := &MarkdownExaminer{}
-	dialect.RegisterExaminer("Markdown", ex)
-	dialect.RegisterExaminer("RMarkdown", ex)
+	types.RegisterExaminer("Markdown", ex)
+	types.RegisterExaminer("RMarkdown", ex)
 }

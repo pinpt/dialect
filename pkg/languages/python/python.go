@@ -1,8 +1,8 @@
 package python
 
 import (
-	"github.com/pinpt/dialect"
 	"github.com/pinpt/dialect/pkg/languages/python/selenium"
+	"github.com/pinpt/dialect/pkg/types"
 	"strings"
 )
 
@@ -10,11 +10,11 @@ type PythonExaminer struct {
 	inDoubleComment bool
 }
 
-func isTest(line *dialect.DialectLine) bool {
+func isTest(line *types.DialectLine) bool {
 	return selenium.IsTest(line)
 }
 
-func (e *PythonExaminer) Examine(language string, filename string, line *dialect.DialectLine) error {
+func (e *PythonExaminer) Examine(language string, filename string, line *types.DialectLine) error {
 	lineBuf := strings.TrimSpace(line.Contents)
 	if e.inDoubleComment {
 		// ending of a double comment
@@ -41,11 +41,11 @@ func (e *PythonExaminer) Examine(language string, filename string, line *dialect
 	return nil
 }
 
-func (e *PythonExaminer) NewExaminer() dialect.DialectExaminer {
+func (e *PythonExaminer) NewExaminer() types.DialectExaminer {
 	ex := new(PythonExaminer)
 	return ex
 }
 
 func init() {
-	dialect.RegisterExaminer("Python", &PythonExaminer{})
+	types.RegisterExaminer("Python", &PythonExaminer{})
 }
