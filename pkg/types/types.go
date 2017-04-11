@@ -52,6 +52,10 @@ type DialectLine struct {
 
 type DialectFrameworkType string
 
+func (t DialectFrameworkType) String() string {
+	return string(t)
+}
+
 const (
 	DialectFrameworkBuild     DialectFrameworkType = "build"
 	DialectFrameworkLanguage  DialectFrameworkType = "language"
@@ -62,6 +66,10 @@ const (
 type DialectFramework struct {
 	Name string               `json:"name"`
 	Type DialectFrameworkType `json:"type"`
+}
+
+func (f *DialectFramework) String() string {
+	return fmt.Sprintf("%s/%s", f.Type, f.Name)
 }
 
 // DialectResultCallback is a callback function for receiving per line results as the code is being examined
@@ -175,7 +183,7 @@ func ExaminerForLanguage(language string) (DialectExaminer, error) {
 	if ex == nil {
 		return nil, errors.New("the default dialect wasn't registered")
 	}
-	return ex, nil
+	return ex.NewExaminer(), nil
 }
 
 // Examiners returns a map of DialectExaminer
