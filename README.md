@@ -94,4 +94,4 @@ If you do implement a new language or fix an existing one, please consider sendi
 
 ## License
 
-Licensed under the MIT License. Copyright (c) 2016-2017 A Pinpoint PBC
+Licensed under the MIT License. Copyright (c) 2016-2017 PinPT, Inc.
