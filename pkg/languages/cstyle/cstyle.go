@@ -1,8 +1,9 @@
 package cstyle
 
 import (
-	"github.com/pinpt/dialect/pkg/types"
 	"strings"
+
+	"github.com/pinpt/dialect/pkg/types"
 )
 
 type CStyleExaminer struct {
@@ -53,6 +54,7 @@ func init() {
 	types.RegisterExaminer("ChucK", examiner)
 	types.RegisterExaminer("Cuda", examiner)
 	types.RegisterExaminer("DTrace", examiner)
+	types.RegisterExaminer("Dart", examiner)
 	types.RegisterExaminer("EQ", examiner)
 	types.RegisterExaminer("Game Maker Language", examiner)
 	types.RegisterExaminer("Kotlin", examiner)

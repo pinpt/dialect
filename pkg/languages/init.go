@@ -19,6 +19,7 @@ import (
 	_ "github.com/pinpt/dialect/pkg/languages/markdown"
 	_ "github.com/pinpt/dialect/pkg/languages/objc"
 	_ "github.com/pinpt/dialect/pkg/languages/php"
+	_ "github.com/pinpt/dialect/pkg/languages/properties"
 	_ "github.com/pinpt/dialect/pkg/languages/protobuf"
 	_ "github.com/pinpt/dialect/pkg/languages/python"
 	_ "github.com/pinpt/dialect/pkg/languages/r"
